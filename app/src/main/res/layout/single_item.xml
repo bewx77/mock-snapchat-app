@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/bitmojiImageView"
+        android:layout_width="75dp"
+        android:layout_height="61dp"
+        android:layout_margin="10dp"
+        android:scaleX="1"
+        android:scaleY="1"
+        app:srcCompat="@drawable/snapchat_user_1" />
+
+    <LinearLayout
+        android:layout_width="311dp"
+        android:layout_height="71dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/userTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="10dp"
+            android:text="User123456"
+            android:textStyle="bold"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/descTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"
+            android:text="➢ Tap to Open • 3h"
+            android:textSize="10sp" />
+    </LinearLayout>
+
+</LinearLayout>
