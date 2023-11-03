@@ -1,41 +1,20 @@
 package com.betheng.clonesnapchatapp
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.View
 import android.widget.ListView
-import com.google.firebase.auth.FirebaseAuth
 
-class SnapsActivity : AppCompatActivity() {
-    private var auth: FirebaseAuth = FirebaseAuth.getInstance()
+class UsersListActivity : AppCompatActivity() {
+
     private lateinit var listView: ListView
     private var programImages : IntArray = intArrayOf(R.drawable.snapchat_user_1, R.drawable.snapchat_user_2,R.drawable.snapchat_user_3,R.drawable.snapchat_user_4)
     private var programName : Array<String> = arrayOf("Beth", "Claire", "Aidan");
-
-    fun createSnapBtnPressed(view: View){
-        var intent : Intent = Intent(this, CreateSnapActivity::class.java)
-        startActivity(intent)
-    }
-    fun logOutBtnPressed(view: View){
-        Log.i("Info", "Logout Button Pressed")
-        auth.signOut()
-        finish()
-    }
-
-    override fun onBackPressed() {
-        super.onBackPressed()
-        auth.signOut()
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_snaps)
+        setContentView(R.layout.activity_users_list)
 
         listView = findViewById(R.id.listView)
         var programAdapter : ProgramAdapter = ProgramAdapter(this, programImages, programName);
         listView.adapter = programAdapter
-
     }
 }
