@@ -10,12 +10,14 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import java.util.ArrayList;
+
 
 public class ProgramAdapter extends ArrayAdapter<String> {
     Context context;
     int[] images;
-    String[] usernames;
-    public ProgramAdapter(Context context, int[] images, String[] usernames) {
+    ArrayList<String> usernames;
+    public ProgramAdapter(Context context, int[] images, ArrayList<String> usernames) {
         super(context, R.layout.single_item, R.id.userTextView, usernames);
         this.context = context;
         this.images = images;
@@ -35,13 +37,13 @@ public class ProgramAdapter extends ArrayAdapter<String> {
             holder = (ProgramViewHolder) singleItem.getTag();
         }
         holder.itemImage.setImageResource(images[position]);
-        holder.programTitle.setText(usernames[position]);
-        singleItem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getContext(), "You clicked:" + usernames[position], Toast.LENGTH_SHORT).show();
-            }
-        });
+        holder.programTitle.setText(usernames.get(position));
+//        singleItem.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Toast.makeText(getContext(), "You clicked:" + usernames.get(position), Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
         return singleItem;
     }

@@ -10,6 +10,7 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
 import android.view.View
+import android.widget.EditText
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.storage.FirebaseStorage
@@ -21,6 +22,7 @@ class CreateSnapActivity : AppCompatActivity() {
 
     private lateinit var snapImageView: ImageView;
     private val imageName = UUID.randomUUID().toString() + ".jpg"
+    private lateinit var msgEditText: EditText;
 
     fun nextBtnPressed(view: View){
         // Get the data from an ImageView as bytes
@@ -30,7 +32,6 @@ class CreateSnapActivity : AppCompatActivity() {
         val baos = ByteArrayOutputStream()
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
         val data = baos.toByteArray()
-
         val ref = FirebaseStorage.getInstance().reference.child("images").child(imageName)
 
         var uploadTask = ref.putBytes(data)
@@ -41,13 +42,15 @@ class CreateSnapActivity : AppCompatActivity() {
                     result.addOnSuccessListener { uri ->
                         val imageUrl = uri.toString()
                         Log.i("Info",imageUrl)
+                        var intent = Intent(this, UsersListActivity::class.java)
+                        intent.putExtra("imageName",imageName)
+                        intent.putExtra("imageUrl", imageUrl)
+                        intent.putExtra("message", msgEditText.text.toString())
+                        startActivity(intent)
                     }
                 }
             }
         }
-
-        var intent = Intent(this, UsersListActivity::class.java)
-        startActivity(intent)
     }
 
     fun chooseImgBtnPressed(view: View){
@@ -63,6 +66,7 @@ class CreateSnapActivity : AppCompatActivity() {
         setContentView(R.layout.activity_create_snap)
 
         snapImageView = findViewById(R.id.snapImageView)
+        msgEditText = findViewById(R.id.msgEditText)
     }
 
     fun getPhoto(){

@@ -10,6 +10,8 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.values
 
 class MainActivity : AppCompatActivity() {
 
@@ -26,6 +28,7 @@ class MainActivity : AppCompatActivity() {
 
     fun redirectToHome(view: View){
         if (isLogin){
+            //Login User
             auth.signInWithEmailAndPassword(usernameEditText?.text.toString(), passwordEditText?.text.toString())
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
@@ -37,9 +40,13 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
         } else {
+            // Sign Up User
             auth.createUserWithEmailAndPassword(usernameEditText?.text.toString(), passwordEditText?.text.toString())
                 .addOnCompleteListener(this){ task ->
                     if (task.isSuccessful) {
+                        //Add to db
+                        val dbUrl = "https://mock-snapchat-app-default-rtdb.asia-southeast1.firebasedatabase.app/"
+                        FirebaseDatabase.getInstance(dbUrl).reference.child("users").child(task.result.user!!.uid).child("email").setValue(usernameEditText?.text.toString())
                         logIn()
                     } else {
                         Log.i("Info", "Sign Up Failed")
